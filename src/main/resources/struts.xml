@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="true" />
+	<package name="default" namespace="/" extends="struts-default">
+
+		<interceptors>
+			<interceptor name="printMsgInterceptorFour"
+				class="com.arjun.interceptor.PrintMsgInterceptorFour"></interceptor>
+			<interceptor name="printMsgInterceptorThird"
+				class="com.arjun.interceptor.PrintMsgInterceptorThird"></interceptor>
+			<interceptor name="printMsgInterceptor"
+				class="com.arjun.interceptor.PrintMsgInterceptor"></interceptor>
+			<interceptor name="printMsgInterceptorSecond"
+				class="com.arjun.interceptor.PrintMsgInterceptorSecond"></interceptor>
+
+
+			<interceptor-stack name="newStack">
+				<interceptor-ref name="printMsgInterceptorThird" />
+				<interceptor-ref name="printMsgInterceptorFour" />
+				<interceptor-ref name="printMsgInterceptor" />
+				<interceptor-ref name="printMsgInterceptorSecond" />
+
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+
+		<action name="welcomeAction" class="com.arjun.Actions.WelcomeAction">
+			<interceptor-ref name="newStack" />
+			<result name="success">pages/userinfo.jsp</result>
+			<!-- This code execute when fourth interceptor check condition if fail 
+				then return this action -->
+			<result name="helloAction" type="redirectAction">helloAction</result>
+		</action>
+		<action name="helloAction" class="com.arjun.Actions.HelloAction">
+			<result name="success">pages/hello.jsp</result>
+		</action>
+	</package>
+</struts>
