@@ -1,19 +1,21 @@
 package com.arjun.Actions;
 
-import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.ServletActionContext;
+
+import com.arjun.model.UserInfo;
+import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ModelDriven;
  
-public class HelloAction extends ActionSupport{
+public class HelloAction implements Action,ModelDriven<UserInfo>{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3499870330108306329L;
-
+	UserInfo userInfo =new UserInfo();
 	public String execute() throws Exception {
-		
+		System.out.println(ServletActionContext.getContext().getSession().get("interceptorNmae").toString());
 		System.out.println("HelloAction execute() is called");
-		
-		return SUCCESS;
-		
+		return SUCCESS;	
+	}
+	@Override
+	public UserInfo getModel() {
+		return userInfo;
 	}
 }

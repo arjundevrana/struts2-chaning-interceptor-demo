@@ -6,28 +6,32 @@
 <struts>
 	<constant name="struts.devMode" value="true" />
 	<package name="default" namespace="/" extends="struts-default">
-
 		<interceptors>
 			<interceptor name="printMsgInterceptorFour"
-				class="com.arjun.interceptor.PrintMsgInterceptorFour"></interceptor>
+				class="com.arjun.interceptor.PrintMsgInterceptorFour">
+				<param name="tabName">availability</param>
+			</interceptor>
 			<interceptor name="printMsgInterceptorThird"
 				class="com.arjun.interceptor.PrintMsgInterceptorThird"></interceptor>
 			<interceptor name="printMsgInterceptor"
 				class="com.arjun.interceptor.PrintMsgInterceptor"></interceptor>
 			<interceptor name="printMsgInterceptorSecond"
 				class="com.arjun.interceptor.PrintMsgInterceptorSecond"></interceptor>
-
-
 			<interceptor-stack name="newStack">
+				<interceptor-ref name="defaultStack" />
 				<interceptor-ref name="printMsgInterceptorThird" />
 				<interceptor-ref name="printMsgInterceptorFour" />
 				<interceptor-ref name="printMsgInterceptor" />
 				<interceptor-ref name="printMsgInterceptorSecond" />
-
-				<interceptor-ref name="defaultStack" />
 			</interceptor-stack>
+			 <interceptor-stack name="appDefault">
+    			<interceptor-ref name="defaultStack">
+	      			<param name="exception.logEnabled">true</param>
+	      			<param name="exception.logLevel">ERROR</param>
+	     		  	<param name="params.excludeParams">dojo\..*,^struts\..*,^session\..*,^request\..*,^application\..*,^servlet(Request|Response)\..*,parameters\...*,submit</param>
+    			</interceptor-ref>
+  			</interceptor-stack>
 		</interceptors>
-
 		<action name="welcomeAction" class="com.arjun.Actions.WelcomeAction">
 			<interceptor-ref name="newStack" />
 			<result name="success">pages/userinfo.jsp</result>
@@ -38,5 +42,12 @@
 		<action name="helloAction" class="com.arjun.Actions.HelloAction">
 			<result name="success">pages/hello.jsp</result>
 		</action>
+		<action name="registerAction" class="com.arjun.Actions.RegisterAction">
+			<!-- <interceptor-ref name="params"></interceptor-ref> <interceptor-ref 
+				name="encrypt"></interceptor-ref> -->
+			<interceptor-ref name="newStack" />
+			<result name="success">pages/registeration.jsp</result>
+		</action>
+
 	</package>
 </struts>
