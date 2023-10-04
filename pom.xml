@@ -10,8 +10,8 @@
 	<properties>
 		<java-version>1.8</java-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
-		<org.slf4j-version>1.6.6</org.slf4j-version>
-		<struts.version>2.1.8</struts.version>
+		<org.slf4j-version>1.7.34</org.slf4j-version>
+		<struts.version>2.2.1</struts.version>
 	</properties>
 	<dependencies>
 		<!-- Struts 2 -->
